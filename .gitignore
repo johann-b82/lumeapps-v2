@@ -1,0 +1,9 @@
+.DS_Store
+.claude/
+dash*.png
+ws*.png
+frappe_docker/
+logs/
+Imports/
+__pycache__/
+*.pyc

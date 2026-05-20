@@ -1,0 +1,38 @@
+{
+ "actions": [],
+ "creation": "2026-05-20 00:00:00",
+ "doctype": "DocType",
+ "issingle": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "poll_interval_seconds",
+  "snmp_timeout_seconds",
+  "column_break_1",
+  "global_temperature_min",
+  "global_temperature_max",
+  "global_humidity_min",
+  "global_humidity_max",
+  "section_break_retention",
+  "reading_retention_days"
+ ],
+ "fields": [
+  {"fieldname":"poll_interval_seconds","label":"Poll Interval (s)","fieldtype":"Int","default":"60","reqd":1},
+  {"fieldname":"snmp_timeout_seconds","label":"SNMP Timeout (s)","fieldtype":"Int","default":"5"},
+  {"fieldname":"column_break_1","fieldtype":"Column Break"},
+  {"fieldname":"global_temperature_min","label":"Global Temp Min","fieldtype":"Float"},
+  {"fieldname":"global_temperature_max","label":"Global Temp Max","fieldtype":"Float"},
+  {"fieldname":"global_humidity_min","label":"Global Humidity Min","fieldtype":"Float"},
+  {"fieldname":"global_humidity_max","label":"Global Humidity Max","fieldtype":"Float"},
+  {"fieldname":"section_break_retention","fieldtype":"Section Break","label":"Retention"},
+  {"fieldname":"reading_retention_days","label":"Reading Retention (days)","fieldtype":"Int","default":"90"}
+ ],
+ "modified": "2026-05-20 00:00:00",
+ "module": "Sensor Monitor",
+ "name": "Sensor Monitor Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {"role":"System Manager","read":1,"write":1,"create":1}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

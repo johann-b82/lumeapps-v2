@@ -1,0 +1,39 @@
+{
+ "charts": [],
+ "content": "[]",
+ "creation": "2026-05-20 00:00:00",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Sensor Monitor",
+ "links": [
+  {"hidden":0,"is_query_report":0,"label":"Sensor Monitor","link_count":0,"link_type":"DocType","onboard":0,"type":"Card Break"},
+  {"dependencies":"","hidden":0,"is_query_report":0,"label":"Dashboard","link_to":"sensor-dashboard","link_type":"Page","onboard":1,"type":"Link"},
+  {"dependencies":"","hidden":0,"is_query_report":0,"label":"Sensors","link_to":"Sensor","link_type":"DocType","onboard":1,"type":"Link"},
+  {"dependencies":"","hidden":0,"is_query_report":0,"label":"Readings","link_to":"Sensor Reading","link_type":"DocType","onboard":0,"type":"Link"},
+  {"dependencies":"","hidden":0,"is_query_report":0,"label":"Sensor Poll Log","link_to":"Sensor Poll Log","link_type":"DocType","onboard":0,"type":"Link"},
+  {"dependencies":"","hidden":0,"is_query_report":0,"label":"Settings","link_to":"Sensor Monitor Settings","link_type":"DocType","onboard":0,"type":"Link"}
+ ],
+ "modified": "2026-05-21 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Sensor Monitor",
+ "name": "Sensor Monitor",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 100.0,
+ "shortcuts": [
+  {"color":"Orange","label":"Dashboard","link_to":"sensor-dashboard","type":"Page"},
+  {"color":"Blue","label":"Sensors","link_to":"Sensor","type":"DocType"},
+  {"color":"Green","label":"Readings","link_to":"Sensor Reading","type":"DocType"},
+  {"color":"Yellow","label":"Sensor Poll Log","link_to":"Sensor Poll Log","type":"DocType"},
+  {"color":"Grey","label":"Settings","link_to":"Sensor Monitor Settings","type":"DocType"}
+ ],
+ "title": "Sensor Monitor"
+}

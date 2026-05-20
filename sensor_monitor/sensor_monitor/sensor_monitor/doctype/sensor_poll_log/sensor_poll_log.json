@@ -1,0 +1,35 @@
+{
+ "actions": [],
+ "autoname": "hash",
+ "creation": "2026-05-20 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sensor",
+  "attempted_at",
+  "success",
+  "column_break_1",
+  "error_kind",
+  "latency_ms"
+ ],
+ "fields": [
+  {"fieldname":"sensor","label":"Sensor","fieldtype":"Link","options":"Sensor","reqd":1,"in_list_view":1,"in_filter":1},
+  {"fieldname":"attempted_at","label":"Attempted At","fieldtype":"Datetime","reqd":1,"in_list_view":1},
+  {"fieldname":"success","label":"Success","fieldtype":"Check","in_list_view":1},
+  {"fieldname":"column_break_1","fieldtype":"Column Break"},
+  {"fieldname":"error_kind","label":"Error Kind","fieldtype":"Data","in_list_view":1},
+  {"fieldname":"latency_ms","label":"Latency (ms)","fieldtype":"Int"}
+ ],
+ "modified": "2026-05-20 00:00:00",
+ "module": "Sensor Monitor",
+ "name": "Sensor Poll Log",
+ "owner": "Administrator",
+ "permissions": [
+  {"role":"System Manager","read":1,"write":1,"create":1,"delete":1,"report":1},
+  {"role":"Sensor Manager","read":1,"report":1},
+  {"role":"Sensor Viewer","read":1,"report":1}
+ ],
+ "sort_field": "attempted_at",
+ "sort_order": "DESC",
+ "track_changes": 0
+}

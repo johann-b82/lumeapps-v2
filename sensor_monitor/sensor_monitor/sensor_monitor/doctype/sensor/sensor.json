@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:sensor_name",
+ "creation": "2026-05-20 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sensor_name",
+  "enabled",
+  "column_break_1",
+  "host",
+  "port",
+  "section_break_snmp",
+  "community",
+  "temperature_oid",
+  "humidity_oid",
+  "column_break_scale",
+  "temperature_scale",
+  "humidity_scale",
+  "section_break_display",
+  "chart_color"
+ ],
+ "fields": [
+  {"fieldname":"sensor_name","label":"Sensor Name","fieldtype":"Data","reqd":1,"unique":1,"in_list_view":1},
+  {"fieldname":"enabled","label":"Enabled","fieldtype":"Check","default":"1","in_list_view":1},
+  {"fieldname":"column_break_1","fieldtype":"Column Break"},
+  {"fieldname":"host","label":"Host","fieldtype":"Data","reqd":1,"in_list_view":1},
+  {"fieldname":"port","label":"Port","fieldtype":"Int","default":"161"},
+  {"fieldname":"section_break_snmp","fieldtype":"Section Break","label":"SNMP"},
+  {"fieldname":"community","label":"Community String","fieldtype":"Password","reqd":1},
+  {"fieldname":"temperature_oid","label":"Temperature OID","fieldtype":"Data"},
+  {"fieldname":"humidity_oid","label":"Humidity OID","fieldtype":"Data"},
+  {"fieldname":"column_break_scale","fieldtype":"Column Break"},
+  {"fieldname":"temperature_scale","label":"Temperature Scale","fieldtype":"Float","default":"1.0","precision":"4"},
+  {"fieldname":"humidity_scale","label":"Humidity Scale","fieldtype":"Float","default":"1.0","precision":"4"},
+  {"fieldname":"section_break_display","fieldtype":"Section Break","label":"Display"},
+  {"fieldname":"chart_color","label":"Chart Color","fieldtype":"Color"}
+ ],
+ "modified": "2026-05-20 00:00:00",
+ "module": "Sensor Monitor",
+ "name": "Sensor",
+ "owner": "Administrator",
+ "permissions": [
+  {"role":"System Manager","read":1,"write":1,"create":1,"delete":1,"export":1,"report":1,"print":1,"share":1},
+  {"role":"Sensor Manager","read":1,"write":1,"create":1,"delete":1,"export":1,"report":1,"print":1,"share":1},
+  {"role":"Sensor Viewer","read":1,"report":1}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
