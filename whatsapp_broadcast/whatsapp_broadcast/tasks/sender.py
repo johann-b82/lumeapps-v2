@@ -76,11 +76,6 @@ def send_post(post_name: str, _inline: bool = False) -> None:
 
     if _inline:
         _finalize(post_name)
-    else:
-        frappe.enqueue(
-            "whatsapp_broadcast.tasks.sender._finalize", post_name=post_name,
-            queue="long", timeout=60, enqueue_after_commit=True,
-        )
 
 
 def send_single(log_name: str) -> None:
@@ -106,6 +101,7 @@ def send_single(log_name: str) -> None:
                         "sent_at": frappe.utils.now_datetime(), "retry_count": attempt})
             _bump(post.name, "sent_count")
             _publish_progress(post.name)
+            _finalize(post.name)
             return
         except meta_client.MetaAPIError as e:
             last_err = e
@@ -119,6 +115,7 @@ def send_single(log_name: str) -> None:
                 "retry_count": attempt})
     _bump(post.name, "failed_count")
     _publish_progress(post.name)
+    _finalize(post.name)
 
 
 def _finalize(post_name: str) -> None:
