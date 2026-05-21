@@ -4,7 +4,19 @@ dash*.png
 ws*.png
 frappe_docker/
 logs/
-Imports/
 __pycache__/
 *.pyc
+
+# Sample data and runtime state — never commit.
+# Legacy ERP exports used by migration/ scripts (customer/lead/order/contact dumps).
+Imports/
+*.xlsx
+*.xls
+Kunden.*
+Interessenten.*
+Auftr*.txt
+Kontakte.*
+
+# Runtime bind mounts created by docker-compose (sites/logs/redis-queue).
 data/
+

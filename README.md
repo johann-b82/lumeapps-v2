@@ -75,6 +75,10 @@ Each script writes a structured log to `logs/<script>.log`.
 
 The app's Workspace and Desktop Icon are populated with the thermometer logo via `after_install` and re-applied on every `bench migrate` via `after_migrate`, so the sidebar app chip always renders the SVG instead of falling back to the workspace-title initial.
 
+## Sample data policy
+
+Legacy ERP exports (`Imports/`, `Kunden.xlsx`, `Interessenten.txt`, `Aufträge.txt`, `Kontakte.txt`, any `*.xlsx`) and runtime bind mounts (`data/`, `logs/`) are **gitignored and must never be committed**. They may contain customer-identifiable data. Future contributions: keep sample / customer data out of the repo, and add new ignore patterns to `.gitignore` rather than working around them.
+
 ## Notes
 
 * `frappe_docker/` (the upstream Frappe compose helper repo) is gitignored.
