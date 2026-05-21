@@ -42,3 +42,48 @@ class TestTemplateValidation(FrappeTestCase):
         doc.insert(ignore_permissions=True)
         self.assertEqual(doc.meta_status, "local")
         doc.delete()
+
+
+import responses
+from whatsapp_broadcast.whatsapp_broadcast.doctype.whatsapp_template.whatsapp_template import (
+    submit_to_meta, sync_status,
+)
+
+
+class TestTemplateActions(FrappeTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        s = frappe.get_single("WhatsApp Settings")
+        s.phone_number_id = "111"; s.business_account_id = "222"
+        s.access_token = "TOKEN"; s.webhook_verify_token = "VT"; s.app_secret = "SECRET"
+        s.save(ignore_permissions=True); frappe.db.commit()
+
+    @responses.activate
+    def test_submit_to_meta_sets_pending_and_id(self):
+        doc = _make(template_name="action_submit")
+        doc.insert(ignore_permissions=True)
+        responses.add(
+            responses.POST,
+            "https://graph.facebook.com/v20.0/222/message_templates",
+            json={"id": "TPL_X", "status": "PENDING"}, status=200,
+        )
+        submit_to_meta(doc.name)
+        doc.reload()
+        self.assertEqual(doc.meta_status, "pending")
+        self.assertEqual(doc.meta_template_id, "TPL_X")
+
+    @responses.activate
+    def test_sync_status_updates_approved(self):
+        doc = _make(template_name="action_sync")
+        doc.insert(ignore_permissions=True)
+        doc.db_set("meta_template_id", "TPL_Y")
+        responses.add(
+            responses.GET,
+            "https://graph.facebook.com/v20.0/222/message_templates",
+            json={"data": [{"name": "action_sync", "language": "de", "status": "APPROVED", "id": "TPL_Y"}]},
+            status=200,
+        )
+        sync_status(doc.name)
+        doc.reload()
+        self.assertEqual(doc.meta_status, "approved")
