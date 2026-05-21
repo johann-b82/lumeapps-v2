@@ -73,7 +73,12 @@ def _apply_status(status: dict) -> None:
     log.db_set("raw_webhook_payload", json.dumps(status))
 
 
+_COUNTER_FIELDS = {"sent_count", "delivered_count", "read_count", "failed_count"}
+
+
 def _bump_counter(post_name: str, field: str) -> None:
+    if field not in _COUNTER_FIELDS:
+        raise ValueError(f"refusing to bump non-whitelisted field {field!r}")
     frappe.db.sql(
         f"UPDATE `tabWhatsApp Post` SET `{field}` = COALESCE(`{field}`, 0) + 1 WHERE name = %s",
         (post_name,),
