@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "autoname":"field:template_name",
+ "creation": "2026-05-21 00:00:00",
+ "doctype":"DocType","engine":"InnoDB",
+ "field_order":[
+  "template_name","language","category","col_meta","meta_status","meta_template_id","rejection_reason",
+  "sec_header","header_type","header_content",
+  "sec_body","body_text","variable_count",
+  "sec_footer","footer_text",
+  "sec_buttons","buttons"
+ ],
+ "fields":[
+  {"fieldname":"template_name","label":"Template Name","fieldtype":"Data","reqd":1,"unique":1,"in_list_view":1},
+  {"fieldname":"language","label":"Language","fieldtype":"Data","reqd":1,"default":"de","in_list_view":1},
+  {"fieldname":"category","label":"Category","fieldtype":"Select","options":"MARKETING\nUTILITY\nAUTHENTICATION","reqd":1,"in_list_view":1},
+  {"fieldname":"col_meta","fieldtype":"Column Break"},
+  {"fieldname":"meta_status","label":"Meta Status","fieldtype":"Select","options":"local\npending\napproved\nrejected\npaused","default":"local","in_list_view":1,"read_only":1},
+  {"fieldname":"meta_template_id","label":"Meta Template ID","fieldtype":"Data","read_only":1},
+  {"fieldname":"rejection_reason","label":"Rejection Reason","fieldtype":"Small Text","read_only":1},
+  {"fieldname":"sec_header","fieldtype":"Section Break","label":"Header"},
+  {"fieldname":"header_type","label":"Header Type","fieldtype":"Select","options":"none\ntext\nimage\nvideo\ndocument","default":"none"},
+  {"fieldname":"header_content","label":"Header Text","fieldtype":"Small Text","depends_on":"eval:doc.header_type=='text'"},
+  {"fieldname":"sec_body","fieldtype":"Section Break","label":"Body"},
+  {"fieldname":"body_text","label":"Body Text","fieldtype":"Text","reqd":1,"description":"Max 1024 chars. Use {{1}}, {{2}} for variables. *bold*, _italic_, ~strike~, ```mono```."},
+  {"fieldname":"variable_count","label":"Variable Count","fieldtype":"Int","read_only":1},
+  {"fieldname":"sec_footer","fieldtype":"Section Break","label":"Footer"},
+  {"fieldname":"footer_text","label":"Footer Text","fieldtype":"Data"},
+  {"fieldname":"sec_buttons","fieldtype":"Section Break","label":"Buttons"},
+  {"fieldname":"buttons","label":"Buttons","fieldtype":"Table","options":"WhatsApp Template Button"}
+ ],
+ "modified":"2026-05-21 00:00:00","module":"WhatsApp Broadcast","name":"WhatsApp Template","owner":"Administrator",
+ "permissions":[
+  {"role":"System Manager","read":1,"write":1,"create":1,"delete":1,"export":1,"report":1},
+  {"role":"WhatsApp Manager","read":1,"write":1,"create":1,"delete":1,"export":1,"report":1},
+  {"role":"WhatsApp User","read":1}
+ ],
+ "sort_field":"modified","sort_order":"DESC","track_changes":1
+}

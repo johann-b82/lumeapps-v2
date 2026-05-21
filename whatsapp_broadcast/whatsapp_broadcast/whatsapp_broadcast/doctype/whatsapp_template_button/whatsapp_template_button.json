@@ -1,0 +1,13 @@
+{
+ "actions": [],
+ "creation": "2026-05-21 00:00:00",
+ "doctype": "DocType","engine":"InnoDB","istable":1,
+ "field_order":["button_type","text","url_or_phone"],
+ "fields":[
+  {"fieldname":"button_type","label":"Type","fieldtype":"Select","options":"quick_reply\nurl\nphone","reqd":1,"in_list_view":1},
+  {"fieldname":"text","label":"Text","fieldtype":"Data","reqd":1,"in_list_view":1},
+  {"fieldname":"url_or_phone","label":"URL / Phone","fieldtype":"Data","in_list_view":1}
+ ],
+ "modified":"2026-05-21 00:00:00","module":"WhatsApp Broadcast","name":"WhatsApp Template Button",
+ "owner":"Administrator","permissions":[],"sort_field":"modified","sort_order":"DESC"
+}
