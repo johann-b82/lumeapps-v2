@@ -1,0 +1,41 @@
+{
+ "actions":[], "autoname":"WP-.YYYY.-.#####",
+ "creation":"2026-05-21 00:00:00","doctype":"DocType","engine":"InnoDB",
+ "field_order":[
+  "title","template","status","col_meta","created_by","queued_at","completed_at",
+  "sec_vars","variable_values","media_attachment","media_id_cache",
+  "sec_recipients","recipient_mode","recipient_tags","explicit_recipients",
+  "sec_counters","total_recipients","sent_count","delivered_count","read_count","failed_count","skipped_opt_out_count"
+ ],
+ "fields":[
+  {"fieldname":"title","label":"Title","fieldtype":"Data","reqd":1,"in_list_view":1},
+  {"fieldname":"template","label":"Template","fieldtype":"Link","options":"WhatsApp Template","reqd":1,"in_list_view":1},
+  {"fieldname":"status","label":"Status","fieldtype":"Select","options":"draft\nqueued\nsending\ncompleted\nfailed","default":"draft","read_only":1,"in_list_view":1},
+  {"fieldname":"col_meta","fieldtype":"Column Break"},
+  {"fieldname":"created_by","label":"Created By","fieldtype":"Link","options":"User","read_only":1},
+  {"fieldname":"queued_at","label":"Queued At","fieldtype":"Datetime","read_only":1},
+  {"fieldname":"completed_at","label":"Completed At","fieldtype":"Datetime","read_only":1},
+  {"fieldname":"sec_vars","fieldtype":"Section Break","label":"Variables & Media"},
+  {"fieldname":"variable_values","label":"Variable Values (JSON)","fieldtype":"JSON","default":"{}"},
+  {"fieldname":"media_attachment","label":"Media Attachment","fieldtype":"Attach"},
+  {"fieldname":"media_id_cache","label":"Meta Media ID","fieldtype":"Data","read_only":1},
+  {"fieldname":"sec_recipients","fieldtype":"Section Break","label":"Recipients"},
+  {"fieldname":"recipient_mode","label":"Mode","fieldtype":"Select","options":"by_tags\nexplicit_list","default":"by_tags","reqd":1},
+  {"fieldname":"recipient_tags","label":"Tags","fieldtype":"Table","options":"WhatsApp Post Tag","depends_on":"eval:doc.recipient_mode=='by_tags'"},
+  {"fieldname":"explicit_recipients","label":"Explicit Recipients","fieldtype":"Table","options":"WhatsApp Post Recipient","depends_on":"eval:doc.recipient_mode=='explicit_list'"},
+  {"fieldname":"sec_counters","fieldtype":"Section Break","label":"Counters"},
+  {"fieldname":"total_recipients","label":"Total","fieldtype":"Int","read_only":1},
+  {"fieldname":"sent_count","label":"Sent","fieldtype":"Int","read_only":1},
+  {"fieldname":"delivered_count","label":"Delivered","fieldtype":"Int","read_only":1},
+  {"fieldname":"read_count","label":"Read","fieldtype":"Int","read_only":1},
+  {"fieldname":"failed_count","label":"Failed","fieldtype":"Int","read_only":1},
+  {"fieldname":"skipped_opt_out_count","label":"Skipped (opt-out)","fieldtype":"Int","read_only":1}
+ ],
+ "modified":"2026-05-21 00:00:00","module":"WhatsApp Broadcast","name":"WhatsApp Post","owner":"Administrator",
+ "permissions":[
+  {"role":"System Manager","read":1,"write":1,"create":1,"delete":1,"export":1,"report":1},
+  {"role":"WhatsApp Manager","read":1,"write":1,"create":1,"delete":1,"export":1,"report":1},
+  {"role":"WhatsApp User","read":1,"report":1}
+ ],
+ "sort_field":"modified","sort_order":"DESC","track_changes":1
+}

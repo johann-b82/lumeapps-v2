@@ -1,0 +1,7 @@
+{
+ "actions":[], "creation":"2026-05-21 00:00:00", "doctype":"DocType","engine":"InnoDB","istable":1,
+ "field_order":["recipient"],
+ "fields":[{"fieldname":"recipient","label":"Recipient","fieldtype":"Link","options":"WhatsApp Recipient","reqd":1,"in_list_view":1}],
+ "modified":"2026-05-21 00:00:00","module":"WhatsApp Broadcast","name":"WhatsApp Post Recipient",
+ "owner":"Administrator","permissions":[],"sort_field":"modified","sort_order":"DESC"
+}
