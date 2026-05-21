@@ -61,6 +61,10 @@ def send_post(post_name: str, _inline: bool = False) -> None:
         "sent_count": 0, "delivered_count": 0, "read_count": 0, "failed_count": 0,
     })
 
+    if not targets:
+        _finalize(post_name)
+        return
+
     for r in targets:
         log = frappe.get_doc({
             "doctype": "WhatsApp Message Log", "post": post_name,
