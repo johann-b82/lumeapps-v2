@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "autoname": "WML-.YYYY.-.######",
+ "creation": "2026-05-21 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "post",
+  "recipient",
+  "phone_number",
+  "status",
+  "col_meta",
+  "meta_message_id",
+  "retry_count",
+  "sec_ts",
+  "sent_at",
+  "delivered_at",
+  "read_at",
+  "sec_err",
+  "error_code",
+  "error_message",
+  "raw_webhook_payload"
+ ],
+ "fields": [
+  {"fieldname": "post", "label": "Post", "fieldtype": "Link", "options": "WhatsApp Post", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "recipient", "label": "Recipient", "fieldtype": "Link", "options": "WhatsApp Recipient", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "phone_number", "label": "Phone", "fieldtype": "Data", "in_list_view": 1},
+  {"fieldname": "status", "label": "Status", "fieldtype": "Select", "options": "queued\nsent\ndelivered\nread\nfailed", "default": "queued", "in_list_view": 1},
+  {"fieldname": "col_meta", "fieldtype": "Column Break"},
+  {"fieldname": "meta_message_id", "label": "Meta Message ID", "fieldtype": "Data"},
+  {"fieldname": "retry_count", "label": "Retries", "fieldtype": "Int", "default": "0"},
+  {"fieldname": "sec_ts", "fieldtype": "Section Break", "label": "Timestamps"},
+  {"fieldname": "sent_at", "label": "Sent", "fieldtype": "Datetime"},
+  {"fieldname": "delivered_at", "label": "Delivered", "fieldtype": "Datetime"},
+  {"fieldname": "read_at", "label": "Read", "fieldtype": "Datetime"},
+  {"fieldname": "sec_err", "fieldtype": "Section Break", "label": "Error / Audit"},
+  {"fieldname": "error_code", "label": "Error Code", "fieldtype": "Data"},
+  {"fieldname": "error_message", "label": "Error Message", "fieldtype": "Small Text"},
+  {"fieldname": "raw_webhook_payload", "label": "Last Webhook Payload", "fieldtype": "JSON"}
+ ],
+ "modified": "2026-05-21 00:00:00",
+ "module": "WhatsApp Broadcast",
+ "name": "WhatsApp Message Log",
+ "owner": "Administrator",
+ "permissions": [
+  {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "export": 1, "report": 1},
+  {"role": "WhatsApp Manager", "read": 1, "export": 1, "report": 1},
+  {"role": "WhatsApp User", "read": 1, "report": 1}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
