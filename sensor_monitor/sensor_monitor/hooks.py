@@ -40,3 +40,4 @@ scheduler_events = {
 
 
 after_install = "sensor_monitor.install.after_install"
+after_migrate = ["sensor_monitor.install._set_desktop_icon"]

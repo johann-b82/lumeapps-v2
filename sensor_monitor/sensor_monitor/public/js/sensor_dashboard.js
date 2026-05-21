@@ -1,3 +1,4 @@
+// v3-area
 frappe.pages["sensor-dashboard"].on_page_load = (wrapper) => {
 	const page = frappe.ui.make_app_page({
 		parent: wrapper,
@@ -35,15 +36,24 @@ frappe.pages["sensor-dashboard"].on_page_load = (wrapper) => {
 		.sensor-dashboard .kpi .val { font-size:24px; font-weight:600; margin-top:2px; }
 		.sensor-dashboard .kpi .sub { font-size:11px; color:var(--text-muted); margin-top:4px; }
 		.sensor-dashboard .pill { padding:2px 8px; border-radius:9999px; font-size:11px; font-weight:600; }
-		.sensor-dashboard .pill.ok { background:#dcfce7; color:#166534; }
+		.sensor-dashboard .pill.ok { background:var(--control-bg); color:var(--text-muted); }
 		.sensor-dashboard .pill.bad { background:#fee2e2; color:#991b1b; }
 		.sensor-dashboard .charts-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 		.sensor-dashboard .chart-host { min-height:200px; }
+		.sensor-dashboard .frappe-chart .y-markers .line-horizontal.dashed { stroke:#ef4444 !important; }
 		@media (max-width: 900px) { .sensor-dashboard .charts-row { grid-template-columns:1fr; } }
 	</style>`).appendTo("head");
 
 	function fmt(v, unit) {
 		return v === null || v === undefined ? "—" : `${(+v).toFixed(2)} ${unit}`;
+	}
+
+	function fmtTs(v) {
+		if (!v) return "";
+		const d = new Date(v.replace(" ", "T"));
+		if (isNaN(d.getTime())) return v;
+		const p = n => String(n).padStart(2, "0");
+		return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
 	}
 
 	function yMarkers(min, max, unit) {
@@ -77,9 +87,9 @@ frappe.pages["sensor-dashboard"].on_page_load = (wrapper) => {
 							<div class="health-pill">—</div>
 						</div>
 						<div class="kpi-row">
-							<div class="kpi"><div class="lbl">${__("Temperature")}</div><div class="val" data-k="t">—</div><div class="sub" data-k="ts">—</div></div>
-							<div class="kpi"><div class="lbl">${__("Humidity")}</div><div class="val" data-k="h">—</div><div class="sub" data-k="hs">—</div></div>
-							<div class="kpi"><div class="lbl">${__("Host")}</div><div class="val" style="font-size:14px">${frappe.utils.escape_html(s.host || "—")}:${s.port || 161}</div><div class="sub">${s.enabled ? __("Enabled") : __("Disabled")}</div></div>
+							<div class="kpi"><div class="lbl">${__("Temperature")}</div><div class="val" data-k="t">—</div></div>
+							<div class="kpi"><div class="lbl">${__("Humidity")}</div><div class="val" data-k="h">—</div></div>
+							<div class="kpi"><div class="lbl">${__("Host")}</div><div class="val">${frappe.utils.escape_html(s.host || "—")}:${s.port || 161}</div><div class="sub">${s.enabled ? __("Enabled") : __("Disabled")}</div></div>
 						</div>
 						<div class="charts-row">
 							<div class="chart-host" data-chart="t"></div>
@@ -100,14 +110,11 @@ frappe.pages["sensor-dashboard"].on_page_load = (wrapper) => {
 			const hNow = latest && latest.humidity;
 			$block.find('[data-k="t"]').text(fmt(tNow, "°C"));
 			$block.find('[data-k="h"]').text(fmt(hNow, "%"));
-			$block.find('[data-k="ts"]').text(latest ? latest.recorded_at : "—");
-			$block.find('[data-k="hs"]').text(latest ? latest.recorded_at : "—");
-
 			const ok = health && health.last_success;
 			$block.find(".health-pill")
 				.removeClass("pill ok bad")
 				.addClass("pill " + (ok ? "ok" : "bad"))
-				.text(ok ? `${__("OK")} · ${health.last_success}` : (health.last_error || __("Offline")));
+				.text(ok ? `${__("Last updated")}: ${fmtTs(health.last_success)}` : (health.last_error || __("Offline")));
 
 			const labels = (readings.rows || []).map(r => r.recorded_at);
 			const temps  = (readings.rows || []).map(r => r.temperature);
@@ -128,9 +135,9 @@ frappe.pages["sensor-dashboard"].on_page_load = (wrapper) => {
 					yMarkers: yMarkers(settings.global_temperature_min, settings.global_temperature_max, " °C") },
 				type: "line",
 				height: 220,
-				lineOptions: { regionFill: 0, hideDots: 1 },
+				lineOptions: { regionFill: 1, hideDots: 1 },
 				axisOptions: { xIsSeries: true, xAxisMode: "tick" },
-				colors: [s.chart_color || "#ef4444"],
+				colors: ["#f59e0b"],
 			});
 			state.charts[s.name + ":h"] = new frappe.Chart($h.get(0), {
 				title: __("Humidity"),
@@ -138,7 +145,7 @@ frappe.pages["sensor-dashboard"].on_page_load = (wrapper) => {
 					yMarkers: yMarkers(settings.global_humidity_min, settings.global_humidity_max, " %") },
 				type: "line",
 				height: 220,
-				lineOptions: { regionFill: 0, hideDots: 1 },
+				lineOptions: { regionFill: 1, hideDots: 1 },
 				axisOptions: { xIsSeries: true, xAxisMode: "tick" },
 				colors: ["#0ea5e9"],
 			});

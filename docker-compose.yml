@@ -1,14 +1,19 @@
 services:
   backend:
-    image: frappe/erpnext:v16.19.1
+    image: lumeapps/erpnext:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ERPNEXT_VERSION: v16.19.1
     networks:
       - frappe_network
     deploy:
       restart_policy:
         condition: on-failure
     volumes:
-      - sites:/home/frappe/frappe-bench/sites
-      - logs:/home/frappe/frappe-bench/logs
+      - ./data/sites:/home/frappe/frappe-bench/sites
+      - ./data/logs:/home/frappe/frappe-bench/logs
     environment:
       DB_HOST: db
       DB_PORT: "3306"
@@ -16,7 +21,7 @@ services:
       MARIADB_ROOT_PASSWORD: admin
 
   configurator:
-    image: frappe/erpnext:v16.19.1
+    image: lumeapps/erpnext:local
     networks:
       - frappe_network
     deploy:
@@ -41,19 +46,19 @@ services:
       REDIS_QUEUE: redis-queue:6379
       SOCKETIO_PORT: "9000"
     volumes:
-      - sites:/home/frappe/frappe-bench/sites
-      - logs:/home/frappe/frappe-bench/logs
+      - ./data/sites:/home/frappe/frappe-bench/sites
+      - ./data/logs:/home/frappe/frappe-bench/logs
 
   create-site:
-    image: frappe/erpnext:v16.19.1
+    image: lumeapps/erpnext:local
     networks:
       - frappe_network
     deploy:
       restart_policy:
         condition: none
     volumes:
-      - sites:/home/frappe/frappe-bench/sites
-      - logs:/home/frappe/frappe-bench/logs
+      - ./data/sites:/home/frappe/frappe-bench/sites
+      - ./data/logs:/home/frappe/frappe-bench/logs
     entrypoint:
       - bash
       - -c
@@ -75,7 +80,7 @@ services:
           fi
         done;
         echo "sites/common_site_config.json found";
-        bench new-site --mariadb-user-host-login-scope='%' --admin-password=admin --db-root-username=root --db-root-password=admin --install-app erpnext --set-default frontend;
+        bench new-site --mariadb-user-host-login-scope='%' --admin-password=admin --db-root-username=root --db-root-password=admin --install-app erpnext --install-app sensor_monitor --set-default frontend;
 
   db:
     image: mariadb:11.8
@@ -101,7 +106,7 @@ services:
       - db-data:/var/lib/mysql
 
   frontend:
-    image: frappe/erpnext:v16.19.1
+    image: lumeapps/erpnext:local
     networks:
       - frappe_network
     depends_on:
@@ -121,13 +126,13 @@ services:
       PROXY_READ_TIMEOUT: 120
       CLIENT_MAX_BODY_SIZE: 50m
     volumes:
-      - sites:/home/frappe/frappe-bench/sites
-      - logs:/home/frappe/frappe-bench/logs
+      - ./data/sites:/home/frappe/frappe-bench/sites
+      - ./data/logs:/home/frappe/frappe-bench/logs
     ports:
       - "8080:8080"
 
   queue-long:
-    image: frappe/erpnext:v16.19.1
+    image: lumeapps/erpnext:local
     networks:
       - frappe_network
     deploy:
@@ -139,14 +144,14 @@ services:
       - --queue
       - long,default,short
     volumes:
-      - sites:/home/frappe/frappe-bench/sites
-      - logs:/home/frappe/frappe-bench/logs
+      - ./data/sites:/home/frappe/frappe-bench/sites
+      - ./data/logs:/home/frappe/frappe-bench/logs
     environment:
       FRAPPE_REDIS_CACHE: redis://redis-cache:6379
       FRAPPE_REDIS_QUEUE: redis://redis-queue:6379
 
   queue-short:
-    image: frappe/erpnext:v16.19.1
+    image: lumeapps/erpnext:local
     networks:
       - frappe_network
     deploy:
@@ -158,8 +163,8 @@ services:
       - --queue
       - short,default
     volumes:
-      - sites:/home/frappe/frappe-bench/sites
-      - logs:/home/frappe/frappe-bench/logs
+      - ./data/sites:/home/frappe/frappe-bench/sites
+      - ./data/logs:/home/frappe/frappe-bench/logs
     environment:
       FRAPPE_REDIS_CACHE: redis://redis-cache:6379
       FRAPPE_REDIS_QUEUE: redis://redis-queue:6379
@@ -172,7 +177,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - redis-queue-data:/data
+      - ./data/redis-queue:/data
 
   redis-cache:
     image: redis:6.2-alpine
@@ -183,7 +188,7 @@ services:
         condition: on-failure
 
   scheduler:
-    image: frappe/erpnext:v16.19.1
+    image: lumeapps/erpnext:local
     networks:
       - frappe_network
     deploy:
@@ -193,11 +198,11 @@ services:
       - bench
       - schedule
     volumes:
-      - sites:/home/frappe/frappe-bench/sites
-      - logs:/home/frappe/frappe-bench/logs
+      - ./data/sites:/home/frappe/frappe-bench/sites
+      - ./data/logs:/home/frappe/frappe-bench/logs
 
   websocket:
-    image: frappe/erpnext:v16.19.1
+    image: lumeapps/erpnext:local
     networks:
       - frappe_network
     deploy:
@@ -210,14 +215,11 @@ services:
       FRAPPE_REDIS_CACHE: redis://redis-cache:6379
       FRAPPE_REDIS_QUEUE: redis://redis-queue:6379
     volumes:
-      - sites:/home/frappe/frappe-bench/sites
-      - logs:/home/frappe/frappe-bench/logs
+      - ./data/sites:/home/frappe/frappe-bench/sites
+      - ./data/logs:/home/frappe/frappe-bench/logs
 
 volumes:
   db-data:
-  redis-queue-data:
-  sites:
-  logs:
 
 networks:
   frappe_network:

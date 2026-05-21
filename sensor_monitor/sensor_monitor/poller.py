@@ -17,29 +17,33 @@ from frappe.utils import get_datetime_str, now_datetime
 
 
 def _snmp_get(host: str, port: int, community: str, oid: str, timeout: int) -> tuple[Any, str | None]:
-	"""Return (value, error_kind). Uses pysnmp; lazy import so the app loads
-	even when pysnmp isn't installed yet."""
+	"""Return (value, error_kind). Uses pysnmp v1arch async API under asyncio.run."""
 	try:
-		from pysnmp.hlapi import (
-			CommunityData,
-			ContextData,
+		import asyncio
+
+		from pysnmp.hlapi.v1arch.asyncio import (
 			ObjectIdentity,
 			ObjectType,
-			SnmpEngine,
-			UdpTransportTarget,
-			getCmd,
+			Slim,
 		)
 	except ImportError:
 		return None, "pysnmp_missing"
 
-	iterator = getCmd(
-		SnmpEngine(),
-		CommunityData(community, mpModel=0),
-		UdpTransportTarget((host, port), timeout=timeout, retries=1),
-		ContextData(),
-		ObjectType(ObjectIdentity(oid)),
-	)
-	err_indication, err_status, _err_index, var_binds = next(iterator)
+	async def _run():
+		with Slim(1) as slim:
+			return await slim.get(
+				community,
+				host,
+				port,
+				ObjectType(ObjectIdentity(oid)),
+				timeout=timeout,
+				retries=1,
+			)
+
+	try:
+		err_indication, err_status, _err_index, var_binds = asyncio.run(_run())
+	except Exception as exc:
+		return None, f"snmp:{exc}"
 	if err_indication:
 		return None, f"snmp:{err_indication}"
 	if err_status:

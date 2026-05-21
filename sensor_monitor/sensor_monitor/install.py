@@ -13,4 +13,19 @@ def after_install() -> None:
 		doc.snmp_timeout_seconds = 5
 		doc.reading_retention_days = 90
 		doc.insert(ignore_permissions=True)
+
+	_set_desktop_icon()
 	frappe.db.commit()
+
+
+def _set_desktop_icon() -> None:
+	if not frappe.db.exists("Desktop Icon", {"label": "Sensor Monitor"}):
+		return
+	frappe.db.set_value(
+		"Desktop Icon",
+		{"label": "Sensor Monitor"},
+		{
+			"app": "sensor_monitor",
+			"logo_url": "/assets/sensor_monitor/images/sensor_monitor_logo.svg",
+		},
+	)
