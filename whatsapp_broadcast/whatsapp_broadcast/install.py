@@ -7,7 +7,13 @@ def after_install() -> None:
     _ensure_role("WhatsApp Manager")
     _ensure_role("WhatsApp User")
     _set_desktop_icon()
+    _hide_home_workspace()
     frappe.db.commit()
+
+
+def _hide_home_workspace() -> None:
+    if frappe.db.exists("Workspace", "Home"):
+        frappe.db.set_value("Workspace", "Home", "is_hidden", 1)
 
 
 def _ensure_role(role_name: str) -> None:

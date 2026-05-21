@@ -25,4 +25,7 @@ doctype_js = {
 }
 
 after_install = "whatsapp_broadcast.install.after_install"
-after_migrate = ["whatsapp_broadcast.install._set_desktop_icon"]
+after_migrate = [
+    "whatsapp_broadcast.install._set_desktop_icon",
+    "whatsapp_broadcast.install._hide_home_workspace",
+]
