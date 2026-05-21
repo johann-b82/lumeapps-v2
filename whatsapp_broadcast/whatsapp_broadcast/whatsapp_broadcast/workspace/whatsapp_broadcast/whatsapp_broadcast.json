@@ -7,7 +7,7 @@
  "public": 1,
  "is_hidden": 0,
  "sequence_id": 50,
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">WhatsApp Broadcast</span>\",\"col\":12}}]",
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">WhatsApp Broadcast</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Posts\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Templates\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Recipients\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Settings\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Message Log\",\"col\":6}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Tags\",\"col\":6}}]",
  "links": [
   {"label":"Posts","link_type":"DocType","link_to":"WhatsApp Post","type":"Link"},
   {"label":"Templates","link_type":"DocType","link_to":"WhatsApp Template","type":"Link"},
@@ -16,6 +16,13 @@
   {"label":"Message Log","link_type":"DocType","link_to":"WhatsApp Message Log","type":"Link"},
   {"label":"Settings","link_type":"DocType","link_to":"WhatsApp Settings","type":"Link"}
  ],
- "shortcuts": [],
+ "shortcuts": [
+  {"label":"Posts","link_to":"WhatsApp Post","type":"DocType","color":"Green"},
+  {"label":"Templates","link_to":"WhatsApp Template","type":"DocType","color":"Blue"},
+  {"label":"Recipients","link_to":"WhatsApp Recipient","type":"DocType","color":"Yellow"},
+  {"label":"Tags","link_to":"WhatsApp Tag","type":"DocType","color":"Gray"},
+  {"label":"Message Log","link_to":"WhatsApp Message Log","type":"DocType","color":"Cyan"},
+  {"label":"Settings","link_to":"WhatsApp Settings","type":"DocType","color":"Pink"}
+ ],
  "roles": []
 }
