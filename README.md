@@ -84,3 +84,24 @@ Legacy ERP exports (`Imports/`, `Kunden.xlsx`, `Interessenten.txt`, `Aufträge.t
 * `frappe_docker/` (the upstream Frappe compose helper repo) is gitignored.
 * `pysnmp` ≥ 7 is async-first. The poller runs each SNMP GET inside `asyncio.run`, so it works from gunicorn worker threads. `DATETIME` fields are written via raw SQL because Frappe's `DateTime` cast appends a `+00:00` offset that MariaDB rejects.
 * Built and verified with Claude Code.
+
+## WhatsApp Broadcast app
+
+Frappe app `whatsapp_broadcast` adds WhatsApp Cloud API template broadcasting.
+
+1. Configure **WhatsApp Settings** (`/app/whatsapp-settings`):
+   - `phone_number_id`, `business_account_id`, `access_token` (from Meta Business Manager).
+   - `webhook_verify_token`, `app_secret` (set up the webhook in Meta first; use any string for verify token).
+2. In Meta Business Manager → WhatsApp → Configuration, set webhook URL to:
+   `https://<your-host>/api/method/whatsapp_broadcast.api.webhook.handle`
+   Verify token = the value in Settings. Subscribe to `messages` field.
+3. Create **WhatsApp Templates**, hit **Submit to Meta**, wait for Meta approval (use **Sync Status** to refresh).
+4. Add **WhatsApp Recipients** with E.164 phone numbers and tag them.
+5. Create a **WhatsApp Post**, pick template + fill variables + select tags or recipients, **Send**.
+
+Run tests:
+
+```bash
+docker compose -p erpnext exec backend bench --site frontend run-tests --app whatsapp_broadcast
+```
+
