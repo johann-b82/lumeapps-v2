@@ -56,6 +56,54 @@ frappe.pages["sensor-dashboard"].on_page_load = (wrapper) => {
 		return `${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
 	}
 
+	function markBreaches($el, values, min, max) {
+		const draw = () => {
+			const svg = $el.find("svg.frappe-chart").get(0);
+			if (!svg) return false;
+			const path = svg.querySelector("path.line-graph-path");
+			if (!path) return false;
+			const parent = path.parentElement;
+			parent.querySelectorAll(".breach-dot").forEach(e => e.remove());
+			const d = path.getAttribute("d") || "";
+			const pts = [];
+			const re = /[ML]\s*([-\d.]+)[ ,]([-\d.]+)/g;
+			let m;
+			while ((m = re.exec(d))) pts.push({ x: +m[1], y: +m[2] });
+			if (pts.length !== values.length) return false;
+			const ns = "http://www.w3.org/2000/svg";
+			parent.querySelectorAll(".breach-line").forEach(e => e.remove());
+			const isBreach = i => {
+				const v = values[i];
+				if (v == null) return false;
+				const low = min != null && min !== 0 && v < min;
+				const high = max != null && max !== 0 && v > max;
+				return low || high;
+			};
+			// Draw connecting lines for runs of consecutive breach points.
+			let run = [];
+			const flush = () => {
+				if (run.length < 2) { run = []; return; }
+				const pl = document.createElementNS(ns, "polyline");
+				pl.setAttribute("points", run.map(i => `${pts[i].x},${pts[i].y}`).join(" "));
+				pl.setAttribute("fill", "none");
+				pl.setAttribute("stroke", "#ef4444");
+				pl.setAttribute("stroke-width", "2");
+				pl.setAttribute("class", "breach-line");
+				parent.appendChild(pl);
+				run = [];
+			};
+			values.forEach((_, i) => {
+				if (isBreach(i)) run.push(i);
+				else flush();
+			});
+			flush();
+			return true;
+		};
+		// Frappe Chart animates ~1000ms; retry until path settles.
+		setTimeout(draw, 1200);
+		setTimeout(draw, 2000);
+	}
+
 	function yMarkers(min, max, unit) {
 		const out = [];
 		if (min !== null && min !== undefined && min !== 0)
@@ -149,6 +197,8 @@ frappe.pages["sensor-dashboard"].on_page_load = (wrapper) => {
 				axisOptions: { xIsSeries: true, xAxisMode: "tick" },
 				colors: ["#0ea5e9"],
 			});
+			markBreaches($t, temps, settings.global_temperature_min, settings.global_temperature_max);
+			markBreaches($h, hums, settings.global_humidity_min, settings.global_humidity_max);
 		}
 
 		if (!sensors.length) {
