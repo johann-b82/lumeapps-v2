@@ -4,10 +4,13 @@ app_publisher = "Lume"
 app_description = "WhatsApp Cloud API broadcast app"
 app_email = "admin@example.com"
 app_license = "mit"
+app_icon_url = "/assets/whatsapp_broadcast/images/whatsapp_broadcast_logo.svg"
+app_logo_url = "/assets/whatsapp_broadcast/images/whatsapp_broadcast_logo.svg"
 
 add_to_apps_screen = [
     {
         "name": "whatsapp_broadcast",
+        "logo": "/assets/whatsapp_broadcast/images/whatsapp_broadcast_logo.svg",
         "title": "WhatsApp Broadcast",
         "route": "/app/whatsapp-broadcast",
     }
