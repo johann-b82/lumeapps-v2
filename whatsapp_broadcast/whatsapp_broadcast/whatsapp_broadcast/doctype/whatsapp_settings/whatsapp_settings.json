@@ -1,0 +1,35 @@
+{
+ "actions": [],
+ "creation": "2026-05-21 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "issingle": 1,
+ "field_order": [
+  "section_api", "phone_number_id", "business_account_id", "access_token",
+  "section_webhook", "webhook_verify_token", "app_secret",
+  "section_send", "default_language", "rate_limit_per_second", "max_retries_5xx"
+ ],
+ "fields": [
+  {"fieldname":"section_api","fieldtype":"Section Break","label":"Cloud API"},
+  {"fieldname":"phone_number_id","label":"Phone Number ID","fieldtype":"Data","reqd":1},
+  {"fieldname":"business_account_id","label":"Business Account ID","fieldtype":"Data","reqd":1},
+  {"fieldname":"access_token","label":"Access Token","fieldtype":"Password","reqd":1},
+  {"fieldname":"section_webhook","fieldtype":"Section Break","label":"Webhook"},
+  {"fieldname":"webhook_verify_token","label":"Verify Token","fieldtype":"Password","reqd":1},
+  {"fieldname":"app_secret","label":"App Secret","fieldtype":"Password","reqd":1},
+  {"fieldname":"section_send","fieldtype":"Section Break","label":"Send"},
+  {"fieldname":"default_language","label":"Default Language","fieldtype":"Data","default":"de"},
+  {"fieldname":"rate_limit_per_second","label":"Rate Limit / Second","fieldtype":"Int","default":"80"},
+  {"fieldname":"max_retries_5xx","label":"Max 5xx Retries","fieldtype":"Int","default":"3"}
+ ],
+ "modified": "2026-05-21 00:00:00",
+ "module": "WhatsApp Broadcast",
+ "name": "WhatsApp Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {"role":"System Manager","read":1,"write":1,"create":1}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
