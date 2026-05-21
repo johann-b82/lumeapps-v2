@@ -21,6 +21,7 @@ COPY --chown=frappe:frappe whatsapp_broadcast /home/frappe/frappe-bench/apps/wha
 
 RUN /home/frappe/frappe-bench/env/bin/pip install --no-cache-dir \
         -e /home/frappe/frappe-bench/apps/whatsapp_broadcast \
+        -r /home/frappe/frappe-bench/apps/whatsapp_broadcast/whatsapp_broadcast/requirements.txt \
     && printf '\nwhatsapp_broadcast\n' >> /home/frappe/frappe-bench/sites/apps.txt \
     && sort -u /home/frappe/frappe-bench/sites/apps.txt -o /home/frappe/frappe-bench/sites/apps.txt \
     && sed -i '/^$/d' /home/frappe/frappe-bench/sites/apps.txt \
