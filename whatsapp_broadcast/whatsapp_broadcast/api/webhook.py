@@ -1,5 +1,6 @@
 from __future__ import annotations
 import hmac, hashlib, json
+from datetime import datetime, timezone
 import frappe
 
 
@@ -57,7 +58,12 @@ def _apply_status(status: dict) -> None:
         return
     log = frappe.get_doc("WhatsApp Message Log", log_name)
     new_status = (status.get("status") or "").lower()
-    ts = frappe.utils.get_datetime_str(frappe.utils.get_datetime(int(status.get("timestamp", "0"))))
+    ts_raw = status.get("timestamp") or "0"
+    try:
+        ts_int = int(ts_raw)
+    except (TypeError, ValueError):
+        ts_int = 0
+    ts = frappe.utils.get_datetime_str(datetime.fromtimestamp(ts_int, tz=timezone.utc).replace(tzinfo=None))
     if new_status == "sent":
         log.db_set({"status": "sent", "sent_at": ts})
     elif new_status == "delivered":
