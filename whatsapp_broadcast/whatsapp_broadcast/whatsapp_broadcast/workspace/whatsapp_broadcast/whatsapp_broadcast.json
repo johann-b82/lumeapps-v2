@@ -1,0 +1,21 @@
+{
+ "doctype": "Workspace",
+ "name": "WhatsApp Broadcast",
+ "label": "WhatsApp Broadcast",
+ "title": "WhatsApp Broadcast",
+ "module": "WhatsApp Broadcast",
+ "public": 1,
+ "is_hidden": 0,
+ "sequence_id": 50,
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">WhatsApp Broadcast</span>\",\"col\":12}}]",
+ "links": [
+  {"label":"Posts","link_type":"DocType","link_to":"WhatsApp Post","type":"Link"},
+  {"label":"Templates","link_type":"DocType","link_to":"WhatsApp Template","type":"Link"},
+  {"label":"Recipients","link_type":"DocType","link_to":"WhatsApp Recipient","type":"Link"},
+  {"label":"Tags","link_type":"DocType","link_to":"WhatsApp Tag","type":"Link"},
+  {"label":"Message Log","link_type":"DocType","link_to":"WhatsApp Message Log","type":"Link"},
+  {"label":"Settings","link_type":"DocType","link_to":"WhatsApp Settings","type":"Link"}
+ ],
+ "shortcuts": [],
+ "roles": []
+}

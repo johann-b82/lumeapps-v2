@@ -1,0 +1,4 @@
+[
+  {"doctype": "Role", "name": "WhatsApp Manager", "role_name": "WhatsApp Manager", "desk_access": 1},
+  {"doctype": "Role", "name": "WhatsApp User", "role_name": "WhatsApp User", "desk_access": 1}
+]
