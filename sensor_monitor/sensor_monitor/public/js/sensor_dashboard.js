@@ -156,8 +156,11 @@ frappe.pages["sensor-dashboard"].on_page_load = (wrapper) => {
 
 			const tNow = latest && latest.temperature;
 			const hNow = latest && latest.humidity;
-			$block.find('[data-k="t"]').text(fmt(tNow, "°C"));
-			$block.find('[data-k="h"]').text(fmt(hNow, "%"));
+			const isBreached = (v, lo, hi) => v != null && ((lo != null && lo !== 0 && v < lo) || (hi != null && hi !== 0 && v > hi));
+			$block.find('[data-k="t"]').text(fmt(tNow, "°C"))
+				.css("color", isBreached(tNow, settings.global_temperature_min, settings.global_temperature_max) ? "#ef4444" : "");
+			$block.find('[data-k="h"]').text(fmt(hNow, "%"))
+				.css("color", isBreached(hNow, settings.global_humidity_min, settings.global_humidity_max) ? "#ef4444" : "");
 			const ok = health && health.last_success;
 			$block.find(".health-pill")
 				.removeClass("pill ok bad")
