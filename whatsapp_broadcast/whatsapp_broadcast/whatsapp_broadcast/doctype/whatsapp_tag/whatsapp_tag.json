@@ -1,0 +1,21 @@
+{
+ "actions": [],
+ "autoname": "field:tag_name",
+ "creation": "2026-05-21 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": ["tag_name"],
+ "fields": [
+  {"fieldname":"tag_name","label":"Tag","fieldtype":"Data","reqd":1,"unique":1,"in_list_view":1}
+ ],
+ "modified": "2026-05-21 00:00:00",
+ "module": "WhatsApp Broadcast",
+ "name": "WhatsApp Tag",
+ "owner": "Administrator",
+ "permissions": [
+  {"role":"System Manager","read":1,"write":1,"create":1,"delete":1},
+  {"role":"WhatsApp Manager","read":1,"write":1,"create":1,"delete":1},
+  {"role":"WhatsApp User","read":1}
+ ],
+ "sort_field": "modified","sort_order":"DESC"
+}
