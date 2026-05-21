@@ -4,6 +4,7 @@ import frappe
 def after_install():
     _ensure_role("WhatsApp Manager")
     _ensure_role("WhatsApp User")
+    frappe.db.commit()
 
 
 def _ensure_role(role_name: str) -> None:
