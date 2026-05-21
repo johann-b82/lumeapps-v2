@@ -16,3 +16,15 @@ RUN /home/frappe/frappe-bench/env/bin/pip install --no-cache-dir \
               /home/frappe/frappe-bench/assets/sensor_monitor \
     && cd /home/frappe/frappe-bench \
     && bench build --app sensor_monitor
+
+COPY --chown=frappe:frappe whatsapp_broadcast /home/frappe/frappe-bench/apps/whatsapp_broadcast
+
+RUN /home/frappe/frappe-bench/env/bin/pip install --no-cache-dir \
+        -e /home/frappe/frappe-bench/apps/whatsapp_broadcast \
+    && printf '\nwhatsapp_broadcast\n' >> /home/frappe/frappe-bench/sites/apps.txt \
+    && sort -u /home/frappe/frappe-bench/sites/apps.txt -o /home/frappe/frappe-bench/sites/apps.txt \
+    && sed -i '/^$/d' /home/frappe/frappe-bench/sites/apps.txt \
+    && ln -sf /home/frappe/frappe-bench/apps/whatsapp_broadcast/whatsapp_broadcast/public \
+              /home/frappe/frappe-bench/assets/whatsapp_broadcast \
+    && cd /home/frappe/frappe-bench \
+    && bench build --app whatsapp_broadcast

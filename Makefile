@@ -48,6 +48,8 @@ bench:
 install-app:
 	docker exec $(BACKEND) bench --site $(SITE) install-app sensor_monitor || \
 	  docker exec $(BACKEND) bench --site $(SITE) execute frappe.installer.add_to_installed_apps --kwargs "{'app_name': 'sensor_monitor'}"
+	docker exec $(BACKEND) bench --site $(SITE) install-app whatsapp_broadcast || \
+	  docker exec $(BACKEND) bench --site $(SITE) execute frappe.installer.add_to_installed_apps --kwargs "{'app_name': 'whatsapp_broadcast'}"
 
 migrate:
 	docker exec $(BACKEND) bench --site $(SITE) migrate
