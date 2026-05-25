@@ -1,0 +1,12 @@
+{
+ "doctype": "Page",
+ "name": "hvv-map",
+ "page_name": "hvv-map",
+ "title": "HVV Karte",
+ "module": "HVV Departures",
+ "standard": "Yes",
+ "system_page": 0,
+ "roles": [
+  {"role": "System Manager"}
+ ]
+}

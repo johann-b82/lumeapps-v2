@@ -1,0 +1,41 @@
+{
+ "actions": [],
+ "creation": "2026-05-25 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "issingle": 1,
+ "field_order": [
+  "section_auth", "username", "password", "base_url", "test_connection_btn",
+  "section_location", "last_address", "radius_m", "time_horizon_minutes", "search_btn", "default_stop", "location_search_html",
+  "center_lat", "center_lon",
+  "section_cache", "stop_cache_ttl_minutes"
+ ],
+ "fields": [
+  {"fieldname":"section_auth","fieldtype":"Section Break","label":"Geofox Auth"},
+  {"fieldname":"username","label":"Username","fieldtype":"Data","reqd":1},
+  {"fieldname":"password","label":"Password (HMAC Key)","fieldtype":"Password","reqd":1},
+  {"fieldname":"base_url","label":"Base URL","fieldtype":"Data","default":"https://gti.geofox.de","reqd":1},
+  {"fieldname":"test_connection_btn","label":"Test Connection","fieldtype":"Button"},
+  {"fieldname":"section_location","fieldtype":"Section Break","label":"Location"},
+  {"fieldname":"last_address","label":"Adresse","fieldtype":"Data","default":"Brandstücken 16, Hamburg","reqd":1},
+  {"fieldname":"radius_m","label":"Umkreis (m)","fieldtype":"Int","default":"1000","reqd":1},
+  {"fieldname":"time_horizon_minutes","label":"Zeithorizont Abfahrten (min)","fieldtype":"Int","default":"120","reqd":1,"description":"Wie weit in die Zukunft Abfahrten geladen werden"},
+  {"fieldname":"search_btn","label":"Suchen","fieldtype":"Button"},
+  {"fieldname":"default_stop","label":"Default Stop","fieldtype":"Link","options":"HVV Stop","description":"Optional saved favorite"},
+  {"fieldname":"location_search_html","fieldtype":"HTML","label":"Karte + Stationen"},
+  {"fieldname":"center_lat","label":"Center Latitude","fieldtype":"Float","default":"53.5703","precision":"6","hidden":1,"read_only":1},
+  {"fieldname":"center_lon","label":"Center Longitude","fieldtype":"Float","default":"9.8585","precision":"6","hidden":1,"read_only":1},
+  {"fieldname":"section_cache","fieldtype":"Section Break","label":"Cache"},
+  {"fieldname":"stop_cache_ttl_minutes","label":"Stop Cache TTL (min)","fieldtype":"Int","default":"1440"}
+ ],
+ "modified": "2026-05-25 00:00:00",
+ "module": "HVV Departures",
+ "name": "HVV Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {"role":"System Manager","read":1,"write":1,"create":1}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

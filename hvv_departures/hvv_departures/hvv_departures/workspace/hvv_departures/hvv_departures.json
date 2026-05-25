@@ -1,0 +1,21 @@
+{
+ "doctype": "Workspace",
+ "name": "HVV Departures",
+ "label": "HVV Departures",
+ "title": "HVV Departures",
+ "module": "HVV Departures",
+ "public": 1,
+ "is_hidden": 0,
+ "sequence_id": 60,
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">HVV Departures</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Karte\",\"col\":4}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Stationen\",\"col\":4}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Settings\",\"col\":4}}]",
+ "links": [
+  {"label":"Stationen","link_type":"DocType","link_to":"HVV Stop","type":"Link"},
+  {"label":"Settings","link_type":"DocType","link_to":"HVV Settings","type":"Link"}
+ ],
+ "shortcuts": [
+  {"label":"Karte","link_to":"hvv-map","type":"Page","color":"Blue"},
+  {"label":"Stationen","link_to":"HVV Stop","type":"DocType","color":"Green"},
+  {"label":"Settings","link_to":"HVV Settings","type":"DocType","color":"Pink"}
+ ],
+ "roles": []
+}

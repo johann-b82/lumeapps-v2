@@ -1,11 +1,13 @@
 # lumeapps-v2
 
-ERPNext-based replacement for the legacy lumeapps stack. Two pieces:
+ERPNext-based replacement for the legacy lumeapps stack. Pieces:
 
 | Folder | What |
 |---|---|
 | `migration/` | Python scripts that import legacy German ERP export files (`Kunden.xlsx`, `Interessenten.txt`, `Aufträge.txt`, `Kontakte.txt`) into ERPNext as Customer / Lead / Sales Order / Communication. Only existing doctype fields, dedupe by stable legacy keys, per-script log file in `logs/` with created/duplicate/failed counts and failure reasons. |
 | `sensor_monitor/` | First-class Frappe app for SNMP temperature/humidity logging. DocTypes Sensor, Sensor Reading, Sensor Poll Log, Sensor Monitor Settings. Cron-driven `pysnmp` poller, daily retention purge, whitelisted REST API, live dashboard page with stacked sensor blocks (KPI cards + split temp/humidity area charts, dashed yMarkers at the global min/max thresholds). |
+| `whatsapp_broadcast/` | Frappe app for WhatsApp Cloud API broadcast. DocTypes Post / Recipient / Tag / Template / Settings, webhook + Meta client. |
+| `hvv_departures/` | Frappe app showing HVV Geofox public-transit stops + live departures around a configurable address. HMAC-SHA1 signed Geofox GTI client, cached stop list filtered to a radius, Desk Page with Leaflet/OSM map and expandable departure cards grouped by direction with HVV-style colored line badges. See [hvv_departures/README.md](hvv_departures/README.md). |
 
 ## Spin up ERPNext (custom image, no post-deploy steps)
 
@@ -17,10 +19,13 @@ open http://localhost:8080   # Administrator / admin
 The custom image (see `Dockerfile`) extends `frappe/erpnext:v16.19.1` and bakes in:
 
 * `sensor_monitor` app, editable-installed into the bench env
+* `whatsapp_broadcast` app, editable-installed into the bench env
+* `hvv_departures` app, editable-installed into the bench env
 * `pysnmp>=7.0` (with the app's poller calling the new `v1arch.asyncio.Slim` API under `asyncio.run`)
-* `bench build --app sensor_monitor` — symlink + bundled assets are baked, so the nginx container serves the logo + page JS without any runtime setup
+* `requests>=2.31` for the Geofox client
+* `bench build --app <app>` for each in-house app — symlinks + bundled assets are baked, so the nginx container serves logos + page JS without any runtime setup
 
-The `create-site` container runs `bench new-site ... --install-app erpnext --install-app sensor_monitor` automatically, so a fresh `make nuke && make up` lands on a fully working dashboard.
+The `create-site` container runs `bench new-site ... --install-app erpnext --install-app sensor_monitor --install-app whatsapp_broadcast --install-app hvv_departures` automatically, so a fresh `make nuke && make up` lands on a fully working stack.
 
 ## Volumes
 

@@ -29,3 +29,16 @@ RUN /home/frappe/frappe-bench/env/bin/pip install --no-cache-dir \
               /home/frappe/frappe-bench/assets/whatsapp_broadcast \
     && cd /home/frappe/frappe-bench \
     && bench build --app whatsapp_broadcast
+
+COPY --chown=frappe:frappe hvv_departures /home/frappe/frappe-bench/apps/hvv_departures
+
+RUN /home/frappe/frappe-bench/env/bin/pip install --no-cache-dir \
+        -e /home/frappe/frappe-bench/apps/hvv_departures \
+        -r /home/frappe/frappe-bench/apps/hvv_departures/hvv_departures/requirements.txt \
+    && printf '\nhvv_departures\n' >> /home/frappe/frappe-bench/sites/apps.txt \
+    && sort -u /home/frappe/frappe-bench/sites/apps.txt -o /home/frappe/frappe-bench/sites/apps.txt \
+    && sed -i '/^$/d' /home/frappe/frappe-bench/sites/apps.txt \
+    && ln -sf /home/frappe/frappe-bench/apps/hvv_departures/hvv_departures/public \
+              /home/frappe/frappe-bench/assets/hvv_departures \
+    && cd /home/frappe/frappe-bench \
+    && bench build --app hvv_departures
